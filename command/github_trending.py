@@ -9,7 +9,7 @@ def get_github_trending_str() -> str:
 
     trending_str = "✨=====GitHub Trending=====✨\n"
     for i, trending in enumerate(trending_list[:10]):  # 只获取前10个趋势
-        trending_str += f"{i + 1}.     {trending['author']} / {trending['repo']}\n  ⭐  {trending['star_total']} total (⭐{trending['star_today']})\n  🔤  {trending['programmingLanguage']}\n  📖  {trending['comment']}\n"
+        trending_str += f"{i + 1}. 🏎️  {trending['author']} / {trending['repo']}\n    ⭐  {trending['star_total']} total (⭐{trending['star_today']})\n    🔤  {trending['programmingLanguage']}\n    📖  {trending['comment']}\n"
     return trending_str
 
 
@@ -43,18 +43,14 @@ def get_github_trending_list() -> list:
             )
             if programming_language:
                 trending_item["programmingLanguage"] = programming_language.text.strip()
-            else:
-                trending_item["programmingLanguage"] = "Unknown"
 
             star_total = article.select_one("a.Link--muted")
             if star_total:
                 trending_item["star_total"] = star_total.get_text(strip=True)
-            else:
-                trending_item["star_total"] = "error"
 
             star_today = article.select_one("div:nth-of-type(2) span:nth-of-type(3)")
             if star_today:
-                trending_item["star_today"] = star_today.text.strip().replace("stars ", "")
+                trending_item["star_today"] = star_today.text.strip().replace("stars ","")
 
             if trending_item:  # Check if the dictionary is not empty before appending
                 trending_list.append(trending_item)
