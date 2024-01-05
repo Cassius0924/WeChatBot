@@ -84,7 +84,7 @@ def tran_by_reverso_context(content: str, from_lang: str, to_lang: str) -> List:
         "User-Agent": "Mozilla/5.0",
         "Content-Type": "application/json; charset=UTF-8",
     }
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers, timeout=10)
     html = response.text
     soup = BeautifulSoup(html, "html.parser")
     translations_content_div = soup.find(id="translations-content")
@@ -120,9 +120,7 @@ def get_reverso_context_tran_str(content: str, from_lang: str, to_lang: str) -> 
     if transliteration != "":
         transliteration_msg = f"(🔈 注音) <{transliteration}>\n"
         msg += transliteration_msg
-    for i, res in enumerate(result):
-        if i >= 10:
-            break
+    for res in result[:10]:
         msg += res + "\n"
     return msg
 
