@@ -61,6 +61,9 @@ class MessageParser:
         elif cmd_value == self.__get_cmd_value("pai-post"):
             CommandInvoker.cmd_pai_post(to_user_name)
 
+        elif cmd_value == self.__get_cmd_value("today-in-history"):
+            CommandInvoker.cmd_today_in_history(to_user_name)
+
     # 获取命令值
     def __get_cmd_value(self, cmd: str) -> int:
         return cmd_dict[cmd]["value"]
