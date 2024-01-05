@@ -1,8 +1,6 @@
 # 消息通知器
 from admin import send_msg_to_all_admin
-from config import admin_list
-from event_parser import EventParser
-from send_msg import send_text_msg
+from send_msg import SendTo, Sender
 
 
 # 消息通知器，用于发送非命令产生的消息
@@ -11,9 +9,9 @@ class Notifier:
         pass
 
     @staticmethod
-    def notify_received(to_user_name: str) -> None:
+    def notify_received(to: SendTo) -> None:
         msg = "收到命令请求"
-        send_text_msg(msg, to_user_name)
+        Sender.send_text_msg(to, msg)
 
     # 机器人登录登出通知，若是登录（登出）则发送登录（登出）消息给所有管理员
     @staticmethod
@@ -21,6 +19,7 @@ class Notifier:
         msg = "微信机器人启动成功"
         send_msg_to_all_admin(msg)
 
+    # FIXME: 登出消息发送不出去，因为发消息时候，机器人已经退出登录了
     @staticmethod
     def notify_logged_out() -> None:
         msg = "微信机器人已退出"

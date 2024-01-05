@@ -1,9 +1,11 @@
 # 接收Docker转发过来的消息的接口
-from fastapi import FastAPI, Form
-from message_parser import MessageParser
 import json
+
+from fastapi import FastAPI, Form
+from bot_info import BotInfo
+from message import Message
+from message_parser import MessageParser
 from notifier import Notifier
-from message import Message, MessageType
 
 app = FastAPI()
 message_parser = MessageParser()
@@ -18,13 +20,17 @@ async def recv_msg(
     isSystemEvent: str = Form(),
 ):
     # DEBUG
-    print("==" * 20)
-    print(type)
-    print(content)
-    print(source)
-    print(isMentioned)
-    print(isSystemEvent)
-    print("==" * 20)
+    # print("==" * 20)
+    # print(type)
+    # print(content)
+    # print(source)
+    # print(isMentioned)
+    # print(isSystemEvent)
+    # print("==" * 20)
+
+    # 更新机器人信息（id和name）
+    # FIXME: 启动服务器后，只有个人消息才能成功更新机器人信息，群消息无法确定机器人的id和name
+    BotInfo.update(source)
 
     # 判断是否是系统事件
     if isSystemEvent == "1":
@@ -33,7 +39,7 @@ async def recv_msg(
 
     # 不是系统消息，则是用户发来的消息
     # 获取发送者的名字
-    to_user_name = get_user_name(source)
+    # to = get_user_name(source)
 
     # 构造消息对象
     message = Message(
@@ -44,20 +50,19 @@ async def recv_msg(
     )
 
     # DEBUG
+    print("==" * 20)
     print(str(message))
     print("==" * 20)
 
     # 用户发来的消息均送给消息解析器处理
-    message_parser.parse_message(message, to_user_name)
+    message_parser.parse_message(message)
 
 
 def get_user_name(source_str: str) -> str:
     source_dict = json.loads(source_str)
-    # 如果source_dict["from"]为空
     if source_dict["from"] == "":
         return ""
-    return source_dict["from"]["payload"]["name"]
-    # return source_dict.get("from", {}).get("payload", {}).get("name", "")
+    return source_dict.get("from", {}).get("payload", {}).get("name", "")
 
 
 # 判断系统事件类型，并调用相应的函数
@@ -65,8 +70,10 @@ def handle_system_event(content: str) -> None:
     content_dict: dict = json.loads(content)
     # 判断是否为机器人登录消息
     if content_dict["event"] == "login":
+        print("机器人登录成功")
         Notifier.notify_logged_in()
     elif content_dict["event"] == "logout":
+        print("机器人已退出登录")
         Notifier.notify_logged_out()
     elif content_dict["event"] == "error":
         pass
