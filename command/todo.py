@@ -43,7 +43,7 @@ def remove_todo_task(person_id: str, task_indices: List[int]) -> str:
 
     try:
         save_todos(person_id, todos)
-        return f"成功删除任务: {' '.join(removed_tasks)}"
+        return f"成功删除待办事项:\n{' '.join(removed_tasks)}"
     except Exception as e:
         print(f"Error removing task: {e}")
         return "删除失败"
