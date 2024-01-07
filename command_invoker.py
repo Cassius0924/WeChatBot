@@ -108,10 +108,14 @@ class CommandInvoker:
 
     # 命令：/todo
     @staticmethod
-    def cmd_todo(to: SendTo, message: str, personid: str) -> None:
+    def cmd_todo(to: SendTo, message: str, personid: str, personname: str) -> None:
         # 获取用户id
         person_id = personid
         Sender.send_text_msg(to, person_id)
+
+        # 获取用户名
+        person_name = personname
+        Sender.send_text_msg(to, person_name)
         # 判断是查询还是添加
         if message == "":
             # 获取待办事项
