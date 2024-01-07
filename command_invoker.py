@@ -1,18 +1,19 @@
 # 命令调用器
+from command.bili_hot import get_bili_hot_str
+from command.douyin_hot import get_douyin_hot_str
+from command.github_trending import get_github_trending_str
 from command.gpt_reply import reply_by_gpt35, reply_by_gpt4
 from command.help import get_help_msg
-from command.bili_hot import get_bili_hot_str
-from command.zhihu_hot import get_zhihu_hot_str
-from command.weibo_hot import get_weibo_hot_str
+from command.pai_post import get_pai_post_str
+from command.today_in_history import get_today_in_history_str
+from command.todo import add_todo_task, remove_todo_task, view_todos
 from command.transalte import (
     get_reverso_context_tran_str,
     detect_lang,
     check_lang_support,
 )
-from command.github_trending import get_github_trending_str
-from command.douyin_hot import get_douyin_hot_str
-from command.pai_post import get_pai_post_str
-from command.today_in_history import get_today_in_history_str
+from command.weibo_hot import get_weibo_hot_str
+from command.zhihu_hot import get_zhihu_hot_str
 from send_msg import SendTo, Sender
 
 
@@ -104,3 +105,40 @@ class CommandInvoker:
     @staticmethod
     def cmd_pai_post(to: SendTo) -> None:
         Sender.send_text_msg(to, get_pai_post_str())
+
+    # 命令：/todo
+    @staticmethod
+    def cmd_todo(to: SendTo, message: str, personid: str) -> None:
+        # 获取用户id
+        person_id = personid
+        # 判断是查询还是添加
+        if message == "":
+            # 获取待办事项
+            result = view_todos(person_id)
+            Sender.send_text_msg(to, result)
+        else:
+            # 添加待办事项
+            add = add_todo_task(person_id, message)
+            if add:
+                Sender.send_text_msg(to, "添加成功")
+                result = view_todos(person_id)
+                Sender.send_text_msg(to, result)
+            else:
+                Sender.send_text_msg(to, "添加失败")
+
+    # 命令：/rmtd
+    @staticmethod
+    def cmd_remove_todo(to: SendTo, message: str, personid: str) -> None:
+        # 获取用户id
+        person_id = personid
+        if message == "":
+            Sender.send_text_msg(to, "请输入要删除的待办事项")
+        else:
+            # 删除待办事项
+            remove = remove_todo_task(person_id, message)
+            if remove:
+                Sender.send_text_msg(to, "删除成功")
+                result = view_todos(person_id)
+                Sender.send_text_msg(to, result)
+            else:
+                Sender.send_text_msg(to, "删除失败")

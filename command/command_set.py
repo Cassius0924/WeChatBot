@@ -77,4 +77,14 @@ cmd_dict = {
         "desc": "获取少数派早报。",
         "value": 15,
     },
+    "todo": {
+        "keys": ["待办事项", "todo"],
+        "desc": "待办事项。",
+        "value": 16,
+    },
+    "rmtd": {
+        "keys": ["删除待办事项", "rmtd"],
+        "desc": "删除待办事项。",
+        "value": 17,
+    },
 }
