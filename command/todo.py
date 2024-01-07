@@ -31,20 +31,6 @@ def add_todo_task(person_id: str, task: str) -> bool:
         return False  # 添加失败，返回 False
 
 
-# 从待办事项列表中移除任务
-# def remove_todo_task(person_id: str, task_index: int) -> str:
-#     todos = load_todos(person_id)
-#     if 0 <= task_index < len(todos):
-#         removed_task = todos.pop(task_index)  # 删除对应索引的任务
-#         try:
-#             save_todos(person_id, todos)
-#             return f"成功删除任务: {removed_task}"
-#         except Exception as e:
-#             print(f"Error removing task: {e}")
-#             return "删除失败"
-#     else:
-#         return "请输入有效数字来删除待办事项"
-
 def remove_todo_task(person_id: str, task_indices: List[int]) -> str:
     todos = load_todos(person_id)
     removed_tasks = []
@@ -69,7 +55,7 @@ def view_todos(person_id: str, person_name: str) -> str:
     personname = person_name
     if todos:
         formatted_todos = f"✨{personname}的待办事项✨\n"
-        formatted_todos += "\n".join(f"{i+1}. {task}" for i, task in enumerate(todos))
+        formatted_todos += "\n".join(f"{i + 1}. {task}" for i, task in enumerate(todos))
         return formatted_todos
     else:
         return "没有待办事项。"

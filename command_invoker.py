@@ -1,4 +1,6 @@
 # 命令调用器
+import re
+
 from command.bili_hot import get_bili_hot_str
 from command.douyin_hot import get_douyin_hot_str
 from command.github_trending import get_github_trending_str
@@ -15,7 +17,6 @@ from command.transalte import (
 from command.weibo_hot import get_weibo_hot_str
 from command.zhihu_hot import get_zhihu_hot_str
 from send_msg import SendTo, Sender
-import re
 
 
 class CommandInvoker:
@@ -130,35 +131,20 @@ class CommandInvoker:
                 Sender.send_text_msg(to, "添加失败")
 
     # 命令：/rmtd
-    # @staticmethod
-    # def cmd_remove_todo(
-    #         to: SendTo, message: str, personid: str, personname: str
-    # ) -> None:
-    #     # 获取用户id
-    #     person_id = personid
-    #     # 获取用户名
-    #     person_name = personname
-    #     if not message.isdigit():
-    #         Sender.send_text_msg(to, "请输入有效数字来删除待办事项")
-    #         return
-    #
-    #     task_index = int(message) - 1  # 用户输入的数字转换为任务索引
-    #     remove_result = remove_todo_task(person_id, task_index)
-    #
-    #     Sender.send_text_msg(to, remove_result)
-    #     result = view_todos(person_id, person_name)
-    #     Sender.send_text_msg(to, result)
-
     @staticmethod
     def cmd_remove_todo(
-            to: SendTo, message: str, personid: str, personname: str
+        to: SendTo, message: str, personid: str, personname: str
     ) -> None:
         # 获取用户id
         person_id = personid
         # 获取用户名
         person_name = personname
 
-        indices = [int(idx.strip()) - 1 for idx in re.split(r'[\s,]+', message) if idx.strip().isdigit()]
+        indices = [
+            int(idx.strip()) - 1
+            for idx in re.split(r"[\s,]+", message)
+            if idx.strip().isdigit()
+        ]
         if not indices:
             Sender.send_text_msg(to, "请输入有效数字来删除待办事项")
             return
