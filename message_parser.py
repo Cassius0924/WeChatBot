@@ -83,7 +83,7 @@ class MessageParser:
             CommandInvoker.cmd_todo(to, msg, id)
 
         elif cmd_value == self.__get_cmd_value("rmtd"):
-            CommandInvoker.cmd_remove_todo(to)
+            CommandInvoker.cmd_remove_todo(to, msg, id)
 
 
     # 获取命令值
