@@ -6,7 +6,7 @@ from command.gpt_reply import reply_by_gpt35, reply_by_gpt4
 from command.help import get_help_msg
 from command.pai_post import get_pai_post_str
 from command.today_in_history import get_today_in_history_str
-from command.todo import add_todo_task, remove_todo_task, view_todos
+from command.todo import add_todo_task, view_todos, load_todos, save_todos
 from command.transalte import (
     get_reverso_context_tran_str,
     detect_lang,
@@ -131,20 +131,25 @@ class CommandInvoker:
     # 命令：/rmtd
     @staticmethod
     def cmd_remove_todo(
-        to: SendTo, message: str, personid: str, personname: str
+            to: SendTo, message: str, personid: str, personname: str
     ) -> None:
         # 获取用户id
         person_id = personid
         # 获取用户名
         person_name = personname
-        if message == "":
-            Sender.send_text_msg(to, "请输入要删除的待办事项")
+        if not message.isdigit():
+            Sender.send_text_msg(to, "请输入有效数字来删除待办事项")
+            return
+
+        task_index = int(message) - 1  # 用户输入的数字转换为任务索引
+        todos = load_todos(person_id)
+
+        if 0 <= task_index < len(todos):
+            removed_task = todos.pop(task_index)  # 删除对应索引的任务
+            save_todos(person_id, todos)
+            Sender.send_text_msg(to, f"成功删除任务: {removed_task}")
+            result = view_todos(person_id, person_name)
+            Sender.send_text_msg(to, result)
         else:
-            # 删除待办事项
-            remove = remove_todo_task(person_id, message)
-            if remove:
-                Sender.send_text_msg(to, "删除成功")
-                result = view_todos(person_id, person_name)
-                Sender.send_text_msg(to, result)
-            else:
-                Sender.send_text_msg(to, "删除失败")
+            Sender.send_text_msg(to, "请输入有效数字来删除待办事项")
+
