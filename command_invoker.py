@@ -111,7 +111,7 @@ class CommandInvoker:
     def cmd_todo(to: SendTo, message: str, personid: str) -> None:
         # 获取用户id
         person_id = personid
-        print(person_id)
+        Sender.send_text_msg(to, person_id)
         # 判断是查询还是添加
         if message == "":
             # 获取待办事项
