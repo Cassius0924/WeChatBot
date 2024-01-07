@@ -135,15 +135,15 @@ class CommandInvoker:
         if message == "":
             # 获取待办事项
             result = view_todos(person_id, person_name)
-            Sender.send_text_msg(to, result)
+            CommandInvoker._send_text_msg(to, result)
         else:
             # 添加待办事项
             add_success = add_todo_task(person_id, message)
             if add_success:
                 result = view_todos(person_id, person_name)
-                Sender.send_text_msg(to, result)
+                CommandInvoker._send_text_msg(to, result)
             else:
-                Sender.send_text_msg(to, "添加失败")
+                CommandInvoker._send_text_msg(to, "添加失败")
 
     # 命令：/rmtd
     @staticmethod
@@ -161,10 +161,10 @@ class CommandInvoker:
             if idx.strip().isdigit()
         ]
         if not indices:
-            Sender.send_text_msg(to, "请输入有效数字来删除待办事项")
+            CommandInvoker._send_text_msg(to, "请输入有效数字来删除待办事项")
             return
 
         remove_result = remove_todo_task(person_id, indices)
-        Sender.send_text_msg(to, remove_result)
+        CommandInvoker._send_text_msg(to, remove_result)
         result = view_todos(person_id, person_name)
-        Sender.send_text_msg(to, result)
+        CommandInvoker._send_text_msg(to, result)
