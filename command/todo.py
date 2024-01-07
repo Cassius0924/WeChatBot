@@ -43,7 +43,9 @@ def remove_todo_task(person_id: str, task_indices: List[int]) -> str:
 
     try:
         save_todos(person_id, todos)
-        return f"成功删除待办事项:\n{' '.join(removed_tasks)}"
+        successful_removals = f"✅=====成功删除待办事项=====✅\n"
+        successful_removals += "\n".join(f"{i + 1}. {task}" for i, task in removed_tasks)
+        return successful_removals
     except Exception as e:
         print(f"Error removing task: {e}")
         return "删除失败"
@@ -54,7 +56,7 @@ def view_todos(person_id: str, person_name: str) -> str:
     todos = load_todos(person_id)
     personname = person_name
     if todos:
-        formatted_todos = f"✨{personname}的待办事项✨\n"
+        formatted_todos = f"✨====={personname}的待办事项=====✨\n"
         formatted_todos += "\n".join(f"{i + 1}. {task}" for i, task in enumerate(todos))
         return formatted_todos
     else:
