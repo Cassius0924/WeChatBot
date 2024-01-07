@@ -31,19 +31,37 @@ def add_todo_task(person_id: str, task: str) -> bool:
         return False  # 添加失败，返回 False
 
 
+# # 从待办事项列表中移除任务
+# def remove_todo_task(person_id: str, task_index: int) -> str:
+#     todos = load_todos(person_id)
+#     if 0 <= task_index < len(todos):
+#         removed_task = todos.pop(task_index)  # 删除对应索引的任务
+#         try:
+#             save_todos(person_id, todos)
+#             return f"成功删除任务: {removed_task}"
+#         except Exception as e:
+#             print(f"Error removing task: {e}")
+#             return "删除失败"
+#     else:
+#         return "请输入有效数字来删除待办事项"
+
 # 从待办事项列表中移除任务
-def remove_todo_task(person_id: str, task_index: int) -> str:
+def remove_todo_task(person_id: str, task_indices: List[int]) -> str:
     todos = load_todos(person_id)
-    if 0 <= task_index < len(todos):
-        removed_task = todos.pop(task_index)  # 删除对应索引的任务
-        try:
-            save_todos(person_id, todos)
-            return f"成功删除任务: {removed_task}"
-        except Exception as e:
-            print(f"Error removing task: {e}")
-            return "删除失败"
-    else:
-        return "请输入有效数字来删除待办事项"
+    removed_tasks = []
+    for task_index in task_indices:
+        if 0 <= task_index < len(todos):
+            removed_task = todos.pop(task_index)  # 删除对应索引的任务
+            removed_tasks.append(removed_task)
+        else:
+            return "请输入有效数字来删除待办事项"
+
+    try:
+        save_todos(person_id, todos)
+        return f"成功删除任务: {' '.join(removed_tasks)}"
+    except Exception as e:
+        print(f"Error removing task: {e}")
+        return "删除失败"
 
 
 # 查看特定用户的所有待办事项
