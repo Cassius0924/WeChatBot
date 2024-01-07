@@ -43,12 +43,18 @@ def remove_todo_task(person_id: str, task_indices: List[int]) -> str:
 
     try:
         save_todos(person_id, todos)
-        successful_removals = f"✅=====成功删除待办事项=====✅\n"
-        successful_removals += "\n".join(f"{i + 1}. {task}" for i, task in removed_tasks)
-        return successful_removals
     except Exception as e:
         print(f"Error removing task: {e}")
+        # If saving fails, add the tasks back
+        todos.extend(removed_tasks)
+        save_todos(person_id, todos)
         return "删除失败"
+
+    successful_removals = "✅=====成功删除待办事项=====✅\n"
+    successful_removals += "\n".join(
+        f"{i + 1}. {task}" for i, task in enumerate(removed_tasks)
+    )
+    return successful_removals
 
 
 # 查看特定用户的所有待办事项
