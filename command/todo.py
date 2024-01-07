@@ -43,7 +43,8 @@ def remove_todo_task(person_id: str, task: str) -> None:
 def view_todos(person_id: str) -> str:
     todos = load_todos(person_id)
     if todos:
-        formatted_todos = "\n".join(f"{i+1}. {task}" for i, task in enumerate(todos))
+        formatted_todos = "\n✨=====你的待办事项=====✨"
+        formatted_todos += "\n".join(f"{i+1}. {task}" for i, task in enumerate(todos))
         return formatted_todos
     else:
         return "没有待办事项。"
