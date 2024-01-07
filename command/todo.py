@@ -31,7 +31,6 @@ def add_todo_task(person_id: str, task: str) -> bool:
         return False  # 添加失败，返回 False
 
 
-
 # 从待办事项列表中移除任务
 def remove_todo_task(person_id: str, task: str) -> None:
     todos = load_todos(person_id)
@@ -41,5 +40,10 @@ def remove_todo_task(person_id: str, task: str) -> None:
 
 
 # 查看特定用户的所有待办事项
-def view_todos(person_id: str) -> List[str]:
-    return load_todos(person_id)
+def view_todos(person_id: str) -> str:
+    todos = load_todos(person_id)
+    if todos:
+        formatted_todos = "\n".join(f"{i+1}. {task}" for i, task in enumerate(todos))
+        return formatted_todos
+    else:
+        return "没有待办事项。"
