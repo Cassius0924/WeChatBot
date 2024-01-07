@@ -32,16 +32,18 @@ def add_todo_task(person_id: str, task: str) -> bool:
 
 
 # 从待办事项列表中移除任务
-def remove_todo_task(person_id: str, task: str) -> bool:
+def remove_todo_task(person_id: str, task_index: int) -> str:
     todos = load_todos(person_id)
-    if task in todos:
-        todos.remove(task)
+    if 0 <= task_index < len(todos):
+        removed_task = todos.pop(task_index)  # 删除对应索引的任务
         try:
             save_todos(person_id, todos)
-            return True  # 删除成功，返回 True
+            return f"成功删除任务: {removed_task}"
         except Exception as e:
             print(f"Error removing task: {e}")
-            return False
+            return "删除失败"
+    else:
+        return "请输入有效数字来删除待办事项"
 
 
 # 查看特定用户的所有待办事项
