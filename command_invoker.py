@@ -124,7 +124,6 @@ class CommandInvoker:
             # 添加待办事项
             add_success = add_todo_task(person_id, message)
             if add_success:
-                Sender.send_text_msg(to, "添加成功")
                 result = view_todos(person_id, person_name)
                 Sender.send_text_msg(to, result)
             else:
