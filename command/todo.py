@@ -42,8 +42,9 @@ def remove_todo_task(person_id: str, task: str) -> None:
 # 查看特定用户的所有待办事项
 def view_todos(person_id: str, person_name: str) -> str:
     todos = load_todos(person_id)
+    personname = person_name
     if todos:
-        formatted_todos = f"✨{person_name}的待办事项✨\n"
+        formatted_todos = f"✨{personname}的待办事项✨\n"
         formatted_todos += "\n".join(f"{i+1}. {task}" for i, task in enumerate(todos))
         return formatted_todos
     else:
