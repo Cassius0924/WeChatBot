@@ -1,10 +1,10 @@
 from PIL import Image, ImageDraw, ImageFont
-from time import get_current_date
+from utils.time import get_current_date
 
 
 def text_to_image(data: str) -> str:
-    dt_str = get_current_date()
-    output_image_path = f"../data/text_image/{dt_str}.png"
+    d_str = get_current_date()
+    output_image_path = f"../data/text_image/{d_str}.png"
     chinese_font_path = "SimHei.ttf"  # 替换为支持中文字符的字体文件路径
 
     # 创建图像
