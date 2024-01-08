@@ -20,8 +20,7 @@ def text_to_image(data: str) -> str:
 
     # 分割文本内容中的中文和其他字符
     chinese_text = "".join([char for char in data if isinstance(char, str) and "CJK" in unicodedata.name(char)])
-    other_text = "".join([char for char in data if not (0x4e00 <= ord(char) <= 0x9fff)])
-
+    other_text = "".join([char for char in data if not (isinstance(char, str) and 0x4e00 <= ord(char) <= 0x9fff)])
 
 
     # 获取文本的矩形框大小
