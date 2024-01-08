@@ -63,7 +63,7 @@ def text_to_image(data: str) -> str:
 
     # Choose a font and font size
     font_path = "SimHei.ttf"  # Replace with your font file path
-    font_size = 30
+    font_size = 25
     font = ImageFont.truetype(font_path, font_size)
 
     # Create a drawing context
