@@ -22,10 +22,12 @@ def text_to_image(data: str) -> str:
     other_text = "".join([char for char in data if not "\u4e00" <= char <= "\u9fff"])
 
     # 获取文本的矩形框大小
-    chinese_width, chinese_height = draw.textbbox(
-        (0, 0), chinese_text, font=chinese_font
-    )[2:]
-    other_width, other_height = draw.textbbox((0, 0), other_text, font=font)[2:]
+    # chinese_width, chinese_height = draw.textbbox((0, 0), chinese_text, font=chinese_font)[2:]
+    # other_width, other_height = draw.textbbox((0, 0), other_text, font=font)[2:]
+
+    chinese_width, chinese_height = draw.textsize(chinese_text, font=chinese_font)
+    other_width, other_height = draw.textsize(other_text, font=font)
+
 
     # 计算文本在图像中的位置
     chinese_x = (image_size[0] - chinese_width) / 2
