@@ -4,8 +4,15 @@ from utils.time import get_current_date
 
 def text_to_image(data: str) -> str:
     image_width = 600
-    image_height = 200
+    line_height = 30  # Height of each line
     background_color = (255, 255, 255)  # White
+
+    # Split the text into lines based on newline character (\n)
+    lines = data.split("\n")
+    num_lines = len(lines)
+
+    # Calculate image height based on the number of lines and line height
+    image_height = num_lines * line_height * 3
     image = Image.new('RGB', (image_width, image_height), background_color)
 
     # Choose a font and font size
@@ -19,11 +26,14 @@ def text_to_image(data: str) -> str:
     # Define text color
     text_color = (0, 0, 0)  # Black
 
-    # Define text position (you can adjust this according to your requirement)
-    text_position = (50, 50)  # (x, y) coordinates
+    # Define initial text position (top-left corner)
+    x_position = 50
+    y_position = 50
 
-    # Draw text on the image
-    draw.text(text_position, data, fill=text_color, font=font)
+    # Draw each line of text on the image
+    for line in lines:
+        draw.text((x_position, y_position), line, fill=text_color, font=font)
+        y_position += line_height  # Move to the next line
 
     # Save the image
     d_str = get_current_date()
@@ -31,16 +41,7 @@ def text_to_image(data: str) -> str:
     image.save(output_image_path)
 
     return output_image_path
-
-# text = "你好，Hello, World! This is a sample text."
+#
+# text = "=====帮助信息=====\n/帮助/help➡️「获取帮助信息。」\n/gpt4➡️「调用GPT4进行回答。」"
 # image_path = text_to_image(text)
 # print(f"Image saved at: {image_path}")
-
-    # d_str = get_current_date()
-    # output_image_path = f"../data/text_image/{d_str}.png"
-    # chinese_font_path = "SimHei.ttf"  # 替换为支持中文字符的字体文件路径
-    #
-    # # 保存图像
-    # image.save(output_image_path)
-    # return output_image_path
-
