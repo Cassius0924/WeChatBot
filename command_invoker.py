@@ -33,10 +33,10 @@ class CommandInvoker:
     # 命令：/help
     @staticmethod
     def cmd_help(to: SendTo, message: str = "") -> None:
-        # 获取帮助信息(文本)
-        from command.help import get_help_msg
-        response = get_help_msg()
-        CommandInvoker._send_text_msg(to, response)
+        # # 获取帮助信息(文本)
+        # from command.help import get_help_msg
+        # response = get_help_msg()
+        # CommandInvoker._send_text_msg(to, response)
 
         # 获取帮助信息(图片)
         from command.help import get_help_image

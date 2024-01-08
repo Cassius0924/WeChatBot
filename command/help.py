@@ -23,4 +23,8 @@ def get_help_image() -> str:
         for key in value["keys"]:
             cmd_msg += "/" + key + "\n"
         help_msg += cmd_msg + "「" + value["desc"] + "」\n"
-    return text_to_image(help_msg)
+    image_path = text_to_image(help_msg)
+    if image_path:
+        return image_path
+    else:
+        return "获取帮助信息失败。"

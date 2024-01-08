@@ -31,17 +31,20 @@ def text_to_image(data: str) -> str:
     y_position = 50
 
     # Draw each line of text on the image
-    for line in lines:
-        draw.text((x_position, y_position), line, fill=text_color, font=font)
-        y_position += line_height  # Move to the next line
+    try:
+        for line in lines:
+            draw.text((x_position, y_position), line, fill=text_color, font=font)
+            y_position += line_height  # Move to the next line
 
-    # Save the image
-    d_str = get_current_date()
-    output_image_path = f"../data/text_image/{d_str}.png"
-    image.save(output_image_path)
+        # Save the image
+        d_str = get_current_date()
+        output_image_path = f"../data/text_image/{d_str}.png"
+        image.save(output_image_path)
+        return output_image_path
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
 
-    return output_image_path
-#
 # text = "=====帮助信息=====\n/帮助/help➡️「获取帮助信息。」\n/gpt4➡️「调用GPT4进行回答。」"
 # image_path = text_to_image(text)
 # print(f"Image saved at: {image_path}")
