@@ -36,10 +36,11 @@ def text_to_image(data: str) -> str:
             y_position += line_height  # Move to the next line
 
         # Save the image
-        from command.command_set import cmd_dict
-        cmd =cmd_dict["help"]["keys"][0]
-        output_image_path = f"../data/text_image/{cmd}.png"
-        # output_image_path = f"data/text_image/nig.png"
+        #TODO：这里需要改成动态的
+        # from command.command_set import cmd_dict
+        # cmd =cmd_dict["help"]["keys"][0]
+        # output_image_path = f"../data/text_image/{cmd}.png"
+        output_image_path = f"data/text_image/nig.png"
         image.save(output_image_path)
         return output_image_path
     except Exception as e:
