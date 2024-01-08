@@ -1,6 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont
-from utils.time import get_current_datetime
-
+from command.command_set import cmd_dict
 
 def text_to_image(data: str) -> str:
     image_width = 600
@@ -37,8 +36,8 @@ def text_to_image(data: str) -> str:
             y_position += line_height  # Move to the next line
 
         # Save the image
-        d_str = get_current_datetime()
-        output_image_path = f"../data/text_image/{d_str}.png"
+        cmd =cmd_dict["help"]["keys"][0]
+        output_image_path = f"../data/text_image/{cmd}.png"
         # output_image_path = f"data/text_image/nig.png"
         image.save(output_image_path)
         return output_image_path
