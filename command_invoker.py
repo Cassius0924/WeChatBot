@@ -1,22 +1,23 @@
 # 命令调用器
+import re
+
+from command.bili_hot import get_bili_hot_str
+from command.douyin_hot import get_douyin_hot_str
+from command.github_trending import get_github_trending_str
 from command.gpt_reply import reply_by_gpt35, reply_by_gpt4
 from command.help import get_help_msg
-from command.bili_hot import get_bili_hot_str
-from command.zhihu_hot import get_zhihu_hot_str
-from command.weibo_hot import get_weibo_hot_str
+from command.pai_post import get_pai_post_str
+from command.qrcode import generate_qrcode
+from command.today_in_history import get_today_in_history_str
+from command.todo import add_todo_task, remove_todo_task, view_todos
 from command.translate import (
     get_reverso_context_tran_str,
     detect_lang,
     check_lang_support,
 )
-from command.github_trending import get_github_trending_str
-from command.douyin_hot import get_douyin_hot_str
-from command.pai_post import get_pai_post_str
-from command.today_in_history import get_today_in_history_str
-from command.qrcode import generate_qrcode
+from command.weibo_hot import get_weibo_hot_str
+from command.zhihu_hot import get_zhihu_hot_str
 from send_msg import SendMessage, SendMessageType, SendTo, Sender
-from command.todo import add_todo_task, remove_todo_task, view_todos
-import re
 
 
 class CommandInvoker:
@@ -136,11 +137,11 @@ class CommandInvoker:
 
     # 命令：/todo
     @staticmethod
-    def cmd_todo(to: SendTo, message: str, personid: str, personname: str) -> None:
+    def cmd_todo(to: SendTo, message: str, personid: str) -> None:
         # 获取用户id
         person_id = personid
         # 获取用户名
-        person_name = personname
+        person_name = to.p_name
         # 判断是查询还是添加
         if message == "":
             # 获取待办事项
@@ -157,13 +158,11 @@ class CommandInvoker:
 
     # 命令：/rmtd
     @staticmethod
-    def cmd_remove_todo(
-            to: SendTo, message: str, personid: str, personname: str
-    ) -> None:
+    def cmd_remove_todo(to: SendTo, message: str, personid: str) -> None:
         # 获取用户id
         person_id = personid
         # 获取用户名
-        person_name = personname
+        person_name = to.p_name
 
         indices = [
             int(idx.strip()) - 1
@@ -178,4 +177,3 @@ class CommandInvoker:
         CommandInvoker._send_text_msg(to, remove_result)
         result = view_todos(person_id, person_name)
         CommandInvoker._send_text_msg(to, result)
-

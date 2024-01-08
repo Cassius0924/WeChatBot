@@ -21,7 +21,6 @@ class MessageParser:
         desc = message.cmd_desc  # 命令描述
         cmd_value = message.cmd_value  # 命令值
         id = message.source.p_info.id  # 发送者id
-        name = message.source.p_info.name  # 发送者昵称
 
         print(desc)
         # 非命令消息
@@ -83,10 +82,10 @@ class MessageParser:
             CommandInvoker.cmd_today_in_history(to)
 
         elif cmd_value == self.__get_cmd_value("todo"):
-            CommandInvoker.cmd_todo(to, msg, id, name)
+            CommandInvoker.cmd_todo(to, msg, id)
 
         elif cmd_value == self.__get_cmd_value("rmtd"):
-            CommandInvoker.cmd_remove_todo(to, msg, id, name)
+            CommandInvoker.cmd_remove_todo(to, msg, id)
 
         elif cmd_value == self.__get_cmd_value("qrcode"):
             CommandInvoker.cmd_qrcode(to, msg)
