@@ -61,7 +61,7 @@ cmd_dict = {
         "desc": "发送今天人民日报的PDF。",
         "value": 12,
     },
-    "today": {
+    "today-in-history": {
         "keys": ["today-in-history", "历史上的今天"],
         "desc": "历史上的今天。",
         "value": 13,
@@ -76,14 +76,19 @@ cmd_dict = {
         "desc": "获取少数派早报。",
         "value": 15,
     },
+    "qrcode": {
+        "keys": ["qrcode", "二维码"],
+        "desc": "生成二维码。",
+        "value": 16,
+    },
     "todo": {
         "keys": ["待办事项", "todo", "待办"],
         "desc": "待办事项。",
-        "value": 16,
+        "value": 17,
     },
     "rmtd": {
         "keys": ["删除待办事项", "删除待办", "rmtd", "rm-todo", "remove-todo"],
         "desc": "删除待办事项。",
-        "value": 17,
+        "value": 18,
     },
 }
