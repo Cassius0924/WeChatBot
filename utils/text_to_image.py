@@ -2,8 +2,8 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 def text_to_image(data: str) -> str:
-    image_width = 600
-    line_height = 30  # Height of each line
+    image_width = 500  # Width of the image
+    line_height = 31  # Height of each line
     background_color = (255, 255, 255)  # White
 
     # Split the text into lines based on newline character (\n)
@@ -36,17 +36,10 @@ def text_to_image(data: str) -> str:
             y_position += line_height  # Move to the next line
 
         # Save the image
-        #TODO：这里需要改成动态的
-        # from command.command_set import cmd_dict
-        # cmd =cmd_dict["help"]["keys"][0]
-        # output_image_path = f"../data/text_image/{cmd}.png"
-        output_image_path = f"data/text_image/nig.png"
+        output_image_path = f"data/text_image/help.png"
         image.save(output_image_path)
         return output_image_path
     except Exception as e:
         print(f"An error occurred: {e}")
         return None
 
-# text = "=====帮助信息=====\n/帮助/help➡️「获取帮助信息。」\n/gpt4➡️「调用GPT4进行回答。」"
-# image_path = text_to_image(text)
-# print(f"Image saved at: {image_path}")
