@@ -38,7 +38,8 @@ def text_to_image(data: str) -> str:
 
         # Save the image
         d_str = get_current_date()
-        output_image_path = f"../data/text_image/{d_str}.png"
+        # output_image_path = f"../data/text_image/{d_str}.png"
+        output_image_path = f"data/text_image/nig.png"
         image.save(output_image_path)
         return output_image_path
     except Exception as e:
