@@ -11,7 +11,7 @@ def get_help_msg() -> str:
         cmd_msg = ""
         for key in value["keys"]:
             cmd_msg += "/" + key + "\n"
-        help_msg += cmd_msg + "➡「" + value["desc"] + "」\n"
+        help_msg += cmd_msg + "-->「" + value["desc"] + "」\n\n"
     return help_msg
 
 # def get_help_image() -> str:
