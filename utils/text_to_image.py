@@ -22,13 +22,9 @@ def text_to_image(data: str) -> str:
     chinese_text = "".join([char for char in data if isinstance(char, str) and "CJK" in unicodedata.name(char)])
     other_text = "".join([char for char in data if not (isinstance(char, str) and 0x4e00 <= ord(char) <= 0x9fff)])
 
-
     # 获取文本的矩形框大小
-    # chinese_width, chinese_height = draw.textbbox((0, 0), chinese_text, font=chinese_font)[2:]
-    # other_width, other_height = draw.textbbox((0, 0), other_text, font=font)[2:]
-
-    chinese_width, chinese_height = draw.textsize(chinese_text, font=chinese_font)
-    other_width, other_height = draw.textsize(other_text, font=font)
+    chinese_width, chinese_height = draw.textbbox((0, 0), chinese_text, font=chinese_font)[2:]
+    other_width, other_height = draw.textbbox((0, 0), other_text, font=font)[2:]
 
 
     # 计算文本在图像中的位置
