@@ -47,6 +47,6 @@ def text_to_image(data: str) -> str:
 
 
 # # 调用函数并传入要转换的文本内容
-# text = "你好吼吼吼，Hello, 123!@#"
+# text = "你好吼吼吼o, 123!@#"
 # resulting_output_image_path = text_to_image(text)
 # print(f"图片已保存至 {resulting_output_image_path}")
