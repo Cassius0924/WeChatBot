@@ -38,10 +38,10 @@ class CommandInvoker:
         response = get_help_msg()
         CommandInvoker._send_text_msg(to, response)
 
-        # # 获取帮助信息(图片)
-        # from command.help import get_help_image
-        # response = get_help_image()
-        # Sender.send_localfile_msg(to, response)
+        # 获取帮助信息(图片)
+        from command.help import get_help_image
+        response = get_help_image()
+        Sender.send_localfile_msg(to, response)
 
     # 命令：/gpt
     @staticmethod

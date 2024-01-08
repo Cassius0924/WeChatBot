@@ -50,3 +50,6 @@ def text_to_image(data: str) -> str:
 # text = "你好吼吼吼o, 123!@#"
 # resulting_output_image_path = text_to_image(text)
 # print(f"图片已保存至 {resulting_output_image_path}")
+#
+# a = "=====帮助信息=====/帮助/help「获取帮助信息。」/gpt4"
+# print(a)
