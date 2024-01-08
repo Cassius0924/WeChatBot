@@ -52,27 +52,27 @@ def text_to_image(data: str) -> str:
 
     background_color = (255, 255, 255)  # White
 
-    # Split the text into lines based on newline character (\n)
+    # 根据换行符(\n)将文本分成几行
     lines = data.split("\n")
     num_lines = len(lines)
 
-    # Calculate image height based on the number of lines and line height
+    # 根据行数和行高计算图像高度
     max_lines_per_column = (num_lines + num_columns - 1) // num_columns
     image_height = max_lines_per_column * line_height
     image = Image.new('RGB', (image_width, image_height), background_color)
 
-    # Choose a font and font size
+    # 选择字体和字体大小
     font_path = "SimHei.ttf"  # Replace with your font file path
     font_size = 25
     font = ImageFont.truetype(font_path, font_size)
 
-    # Create a drawing context
+    # 创建绘图上下文
     draw = ImageDraw.Draw(image)
 
-    # Define text color
+    # 定义文本颜色
     text_color = (0, 0, 0)  # Black
 
-    # Define initial text position (top-left corner)
+    # 定义初始文本位置(左上角)
     x_position = 50
     y_position = 50
 
@@ -84,11 +84,11 @@ def text_to_image(data: str) -> str:
 
         text = "\n".join(column_lines)
         draw.text((x_position, y_position), text, fill=text_color, font=font)
-        x_position += image_width // num_columns  # Move to the next column
+        x_position += image_width // num_columns  # 移动到下一列
         lines_drawn += len(column_lines)
-        y_position = 50  # Reset y_position for the next column
+        y_position = 50  # 重置下一列的y_position
 
-    # Save the image
+    # 保存图像
     output_image_path = "data/text_image/help.png"
     image.save(output_image_path)
     return output_image_path
