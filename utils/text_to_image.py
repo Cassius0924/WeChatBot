@@ -12,7 +12,7 @@ def text_to_image(data: str) -> str:
     num_lines = len(lines)
 
     # Calculate image height based on the number of lines and line height
-    image_height = num_lines * line_height * 1.1
+    image_height = num_lines * line_height
     image = Image.new('RGB', (image_width, image_height), background_color)
 
     # Choose a font and font size
