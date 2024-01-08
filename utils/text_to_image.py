@@ -2,8 +2,8 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 def text_to_image(data: str) -> str:
-    image_width = 500  # Width of the image
-    line_height = 31  # Height of each line
+    image_width = 400  # Width of the image
+    line_height = 40  # Height of each line
     background_color = (255, 255, 255)  # White
 
     # Split the text into lines based on newline character (\n)
