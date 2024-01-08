@@ -22,5 +22,5 @@ def get_help_image() -> str:
         cmd_msg = ""
         for key in value["keys"]:
             cmd_msg += "/" + key + "\n"
-        help_msg += cmd_msg + "➡️「" + value["desc"] + "」\n"
+        help_msg += cmd_msg + "「" + value["desc"] + "」\n"
     return text_to_image(help_msg)
