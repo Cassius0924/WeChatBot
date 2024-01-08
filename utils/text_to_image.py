@@ -46,7 +46,7 @@
 from PIL import Image, ImageDraw, ImageFont
 
 def text_to_image(data: str) -> str:
-    image_width = 800  # Width of the image
+    image_width = 1000  # Width of the image
     line_height = 40  # Height of each line
     num_columns = 2  # Number of columns for text
 
