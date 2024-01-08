@@ -1,5 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont
-from utils.time import get_current_date
+from utils.time import get_current_datetime
 
 
 def text_to_image(data: str) -> str:
@@ -37,7 +37,7 @@ def text_to_image(data: str) -> str:
             y_position += line_height  # Move to the next line
 
         # Save the image
-        d_str = get_current_date()
+        d_str = get_current_datetime()
         output_image_path = f"../data/text_image/{d_str}.png"
         # output_image_path = f"data/text_image/nig.png"
         image.save(output_image_path)
