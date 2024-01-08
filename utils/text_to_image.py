@@ -1,6 +1,11 @@
 from PIL import Image, ImageDraw, ImageFont
+
 from utils.time import get_current_date
-import unicodedata
+
+
+def is_chinese(char):
+    """检查字符是否为中文字符。"""
+    return "\u4e00" <= char <= "\u9fff"
 
 
 def text_to_image(data: str) -> str:
@@ -19,16 +24,12 @@ def text_to_image(data: str) -> str:
     chinese_font = ImageFont.truetype(chinese_font_path, font_size)
 
     # 分割文本内容中的中文和其他字符
-    # chinese_text = "".join([char for char in data if "\u4e00" <= char <= "\u9fff"])
-    # other_text = "".join([char for char in data if not "\u4e00" <= char <= "\u9fff"])
-    chinese_text = "".join([char for char in data if "\u4e00" <= char <= "\u9fff"])
-    other_text = "".join([char for char in data if not ("\u4e00" <= char <= "\u9fff")])
-
+    chinese_text = "".join([char for char in data if is_chinese(char)])
+    other_text = "".join([char for char in data if not is_chinese(char)])
 
     # 获取文本的矩形框大小
     chinese_width, chinese_height = draw.textbbox((0, 0), chinese_text, font=chinese_font)[2:]
     other_width, other_height = draw.textbbox((0, 0), other_text, font=font)[2:]
-
 
     # 计算文本在图像中的位置
     chinese_x = (image_size[0] - chinese_width) / 2
