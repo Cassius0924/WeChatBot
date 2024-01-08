@@ -17,6 +17,7 @@ from command.translate import (
 from command.weibo_hot import get_weibo_hot_str
 from command.zhihu_hot import get_zhihu_hot_str
 from send_msg import Sender, SendMessage, SendMessageType, SendTo
+from utils.text_to_image import text_to_image
 
 
 class CommandInvoker:
@@ -39,9 +40,11 @@ class CommandInvoker:
         # CommandInvoker._send_text_msg(to, response)
 
         # 获取帮助信息(图片)
-        from command.help import get_help_image
-        response = get_help_image()
-        Sender.send_localfile_msg(to, response)
+        from command.help import get_help_msg
+        help_msg = get_help_msg()
+        response = text_to_image(help_msg)
+        if response:
+            Sender.send_localfile_msg(to, response)
 
     # 命令：/gpt
     @staticmethod
