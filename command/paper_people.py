@@ -17,7 +17,7 @@ def get_paper_people_todaypdf() -> str:
     try:
         response = requests.get(url, timeout=10)
         if response.status_code == 200:
-            with open("save_path", "wb") as file:
+            with open(save_path, "wb") as file:
                 file.write(response.content)
             print(f"下载成功，保存路径为{save_path}")
         else:
