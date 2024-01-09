@@ -151,7 +151,8 @@ class CommandInvoker:
         #判断是否为空
         if message == "":
             response = get_paper_people_todaypdf()
-            Sender.send_localfile_msg(to, response)
+            CommandInvoker._send_text_msg(to, response)
+            # Sender.send_localfile_msg(to, response)
 
 
     # 命令：/todo
