@@ -24,7 +24,7 @@ def get_paper_people_todaypdf() -> str:
             print(f"下载失败，状态码为{response.status_code}")
     except Exception as e:
         print(f"下载失败，错误为{e}")
-    # return save_path
+    return save_path
 
 def get_paper_people_datepdf() -> str:
     pass

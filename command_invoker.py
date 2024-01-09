@@ -152,7 +152,7 @@ class CommandInvoker:
         if message == "":
             response = get_paper_people_todaypdf()
             CommandInvoker._send_text_msg(to, response)
-            # Sender.send_localfile_msg(to, response)
+            Sender.send_localfile_msg(to, response)
 
 
     # 命令：/todo
