@@ -154,28 +154,27 @@ class CommandInvoker:
         if message.lower() == "url":
             response = get_paper_people_url()
             CommandInvoker._send_text_msg(to, response)
-        """发送特定日期特定版本的url"""
-        parts = message.lower().split()
-        if len(parts) == 2 and parts[0] == "url" and parts[1].isdigit():
-            response = get_paper_people_pdf_url(parts[1])
+        # 使用 elif 确保只有一个条件被满足
+        elif message.isdigit():
+            response = get_paper_people_pdf_url(message)
             if response:
                 CommandInvoker._send_text_msg(to, response)
+        else:
+            """发送人民日报PDF文件"""
+            """发送特定日期特定版本的人民日报PDF"""
+            if message != "":
+                path = get_paper_people_dateversionpdf(message)
+                if path:
+                    Sender.send_localfile_msg(to, path)
+                if path is None:
+                    e = "输入的日期版本号不符合要求，请重新输入\n若要获取2021年1月2日03版的人民日报的pdf，请输入\n/people 2021010203"
+                    CommandInvoker._send_text_msg(to, e)
 
-
-        """发送人民日报PDF文件"""
-        """发送特定日期特定版本的人民日报PDF"""
-        if message != "":
-            path = get_paper_people_dateversionpdf(message)
-            if path:
+            """发送当天01版本的人民日报PDF"""
+            if message == "":
+                path = get_paper_people_todaypdf()
                 Sender.send_localfile_msg(to, path)
-            if path is None:
-                e = "输入的日期版本号不符合要求，请重新输入\n若要获取2021年1月2日03版的人民日报的pdf，请输入\n/people 2021010203"
-                CommandInvoker._send_text_msg(to, e)
 
-        """发送当天01版本的人民日报PDF"""
-        if message == "":
-            path = get_paper_people_todaypdf()
-            Sender.send_localfile_msg(to, path)
 
     # 命令：/todo
     @staticmethod
