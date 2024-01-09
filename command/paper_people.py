@@ -67,7 +67,7 @@ def get_paper_people_dateversionpdf(date_version: str) -> str:#2024010901
         # 判断是否已经人民日报pdf到本地
         if os.path.exists(save_path):
             print(f"已经下载过{save_path}")
-            return url
+            return save_path
         else:
             try:
                 response = requests.get(url, timeout=10)
