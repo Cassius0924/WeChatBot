@@ -34,7 +34,7 @@ def get_current_year_month() -> str:
     """获取当前年月
     返回格式化后的年月字符串
     """
-    return time.strftime("%y-%m", time.localtime())
+    return time.strftime("%Y-%m", time.localtime())
 
 
 def get_current_day() -> str:
@@ -47,4 +47,4 @@ def get_current_ymd() -> str:
     """获取当前年月日
     返回格式化后的年月日字符串
     """
-    return time.strftime("%y%m%d", time.localtime())
+    return time.strftime("%Y%m%d", time.localtime())
