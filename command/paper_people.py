@@ -39,8 +39,9 @@ def get_paper_people_pdf_url(date_version: str) -> str:#2024010901
             except Exception as e:
                 print(f"下载失败，错误为{e}")
             return url
-    else:
-        return None
+    if not (date_version.isdigit() and len(date_version) == 10):
+        e = "输入的日期版本号不符合要求，请重新输入\n若要获取2021年1月2日03版的人民日报的url，请输入/people url 2021010203"
+        return e
 
 def get_paper_people_url() -> str:
     """获取今日01版人民日报pdf的url"""
