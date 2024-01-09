@@ -3,7 +3,7 @@ from utils.time import get_current_year_month, get_current_day, get_current_ymd
 from utils.path import get_abs_path
 
 def get_paper_people_pdf_url(date_version: str) -> str:#2024010901
-    """获取人民日报pdf到本地并返回url"""
+    """获取特定日期特定版本的人民日报pdf到本地并返回url"""
     #判断字符串是否为数字并且长度为10
     if date_version.isdigit() and len(date_version) == 10:
         yearmonthday = date_version[:8]#20240109
