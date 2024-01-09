@@ -18,8 +18,8 @@ from command.weibo_hot import get_weibo_hot_str
 from command.zhihu_hot import get_zhihu_hot_str
 from send_msg import Sender, SendMessage, SendMessageType, SendTo
 from utils.text_to_image import text_to_image
-from command.paper_people import get_paper_people_todaypdf, get_paper_people_pdf_url, get_paper_people_dateversionpdf, \
-    get_paper_people_url
+from command.paper_people import get_today_paper_pdf_url, get_paper_pdf_url, get_paper_pdf_path, \
+    get_today_paper_pdf_path
 
 
 class CommandInvoker:
@@ -113,20 +113,20 @@ class CommandInvoker:
         """发送人民日报url"""
         """发送当天01版本的人民日报url"""
         if message.lower() == "url":
-            response = get_paper_people_url()
+            response = get_today_paper_pdf_url()
             CommandInvoker._send_text_msg(to, response)
         elif message.lower().startswith("url"):
             """发送特定日期特定版本的url"""
             parts = message.lower().split()
             if len(parts) == 2 and parts[0] == "url" and parts[1].isdigit():
-                response = get_paper_people_pdf_url(parts[1])
+                response = get_paper_pdf_url(parts[1])
                 if response:
                     CommandInvoker._send_text_msg(to, response)
         else:
             """发送人民日报PDF文件"""
             """发送特定日期特定版本的人民日报PDF"""
             if message != "":
-                path = get_paper_people_dateversionpdf(message)
+                path = get_paper_pdf_path(message)
                 if path:
                     Sender.send_localfile_msg(to, path)
                 if path is None:
@@ -135,7 +135,7 @@ class CommandInvoker:
 
             """发送当天01版本的人民日报PDF"""
             if message == "":
-                path = get_paper_people_todaypdf()
+                path = get_today_paper_pdf_path()
                 Sender.send_localfile_msg(to, path)
 
     # 命令：/today-in-history

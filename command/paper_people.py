@@ -1,8 +1,11 @@
 import os
 from typing import Optional
+
 import requests
-from utils.time import get_current_ymd
+
 from utils.path import get_abs_path
+from utils.time import get_current_ymd
+
 
 def has_downloaded_paper_pdf(date_version: str) -> bool:
     """判断是否已经下载了人民日报pdf到本地"""
@@ -11,6 +14,7 @@ def has_downloaded_paper_pdf(date_version: str) -> bool:
 
     save_path = get_abs_path(f"data/paper_people_pdf/{yearmonthday}{version}.pdf")
     return os.path.exists(save_path)
+
 
 def download_paper_pdf(url: str, save_path: str) -> None:
     """下载人民日报pdf到本地"""
@@ -25,6 +29,7 @@ def download_paper_pdf(url: str, save_path: str) -> None:
     except Exception as e:
         print(f"下载失败，错误为{e}")
 
+
 def get_paper_pdf_url(date_version: str) -> Optional[str]:
     """获取特定日期特定版本的人民日报pdf的URL"""
     yearmonthday = date_version[:8] if date_version.isdigit() and len(date_version) == 10 else ""
@@ -35,6 +40,13 @@ def get_paper_pdf_url(date_version: str) -> Optional[str]:
 
     url = f"http://paper.people.com.cn/rmrb/images/{year_month}/{day}/{version}/rmrb{yearmonthday}{version}.pdf"
     return url if yearmonthday and version else None
+
+
+def get_today_paper_pdf_url() -> Optional[str]:
+    """获取今日01版人民日报pdf的URL"""
+    today_date_version = get_current_ymd() + "01"
+    return get_paper_pdf_url(today_date_version)
+
 
 def get_paper_pdf_path(date_version: str) -> Optional[str]:
     """获取特定日期特定版本的人民日报pdf的路径"""
@@ -57,17 +69,11 @@ def get_paper_pdf_path(date_version: str) -> Optional[str]:
         else:
             return None
 
+
 def get_today_paper_pdf_path() -> Optional[str]:
     """获取今日01版人民日报pdf的路径"""
     today_date_version = get_current_ymd() + "01"
     return get_paper_pdf_path(today_date_version)
-
-def get_today_paper_pdf_url() -> Optional[str]:
-    """获取今日01版人民日报pdf的URL"""
-    today_date_version = get_current_ymd() + "01"
-    return get_paper_pdf_url(today_date_version)
-
-
 
 # import os
 # from typing import Optional
