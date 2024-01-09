@@ -168,9 +168,6 @@ class CommandInvoker:
             path = get_paper_people_dateversionpdf(message)
             if path:
                 Sender.send_localfile_msg(to, path)
-            else:
-                error = "输入的日期版本号不符合要求，请重新输入\n若想获取2021年1月2日03版的人民日报的,请输入\n/people 2021010203"
-                CommandInvoker._send_text_msg(to, error)
         """发送当天01版本的人民日报PDF"""
         if message == "":
             path = get_paper_people_todaypdf()
