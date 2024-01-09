@@ -3,7 +3,7 @@ import os
 import requests
 from utils.time import get_current_year_month, get_current_day, get_current_ymd
 from utils.path import get_abs_path
-
+#TODO:封装是否已经下载过人民日报pdf到本地方法
 def download_paper_people_pdf(date_version: str) -> str:
     """判断是否已经人民日报pdf到本地"""
     pass
@@ -80,9 +80,9 @@ def get_paper_people_dateversionpdf(date_version: str) -> str:#2024010901
             except Exception as e:
                 print(f"下载失败，错误为{e}")
             return save_path
-    else:
-        print("输入的日期版本号不符合要求，请重新输入\n若想获取2021年1月2日03版的人民日报，请输入\n/people 2021010203")
-        return None
+    # else:
+    #     print("输入的日期版本号不符合要求，请重新输入\n若想获取2021年1月2日03版的人民日报，请输入\n/people 2021010203")
+    #     return None
 
 
 def get_paper_people_todaypdf() -> str:#2024010901
