@@ -80,8 +80,8 @@ def get_paper_people_dateversionpdf(date_version: str) -> Optional[str]:
             except Exception as e:
                 print(f"下载失败，错误为{e}")
             return save_path
-    else:
-        print("输入的日期版本号不符合要求，请重新输入\n若想获取2021年1月2日03版的人民日报，请输入\n/people 2021010203")
+    if not (date_version.isdigit() and len(date_version) == 10):
+        print("输入的日期版本号不符合要求，请重新输入...")
         return None
 
 
