@@ -155,14 +155,15 @@ class CommandInvoker:
             response = get_paper_people_url()
             CommandInvoker._send_text_msg(to, response)
         """发送特定日期特定版本的url"""
-        parts = message.lower().split()
-        if len(parts) == 2 and parts[0] == "url" and parts[1].isdigit():
-            response = get_paper_people_pdf_url(parts[1])
-            if response:
-                CommandInvoker._send_text_msg(to, response)
-            else:
-                error = "输入的日期版本号不符合要求，请重新输入\n若想获取2021年1月2日03版的人民日报的url,请输入\n/people url 2021010203"
-                CommandInvoker._send_text_msg(to, error)
+        if message.lower() != "" and message.lower() != "url":
+            parts = message.lower().split()
+            if len(parts) == 2 and parts[0] == "url" and parts[1].isdigit():
+                response = get_paper_people_pdf_url(parts[1])
+                if response:
+                    CommandInvoker._send_text_msg(to, response)
+                else:
+                    error = "输入的日期版本号不符合要求，请重新输入\n若想获取2021年1月2日03版的人民日报的url,请输入\n/people url 2021010203"
+                    CommandInvoker._send_text_msg(to, error)
 
         """发送人民日报PDF文件"""
         """发送特定日期特定版本的人民日报PDF"""
