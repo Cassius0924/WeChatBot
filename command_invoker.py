@@ -18,6 +18,7 @@ from command.weibo_hot import get_weibo_hot_str
 from command.zhihu_hot import get_zhihu_hot_str
 from send_msg import Sender, SendMessage, SendMessageType, SendTo
 from utils.text_to_image import text_to_image
+from command.paper_people import get_paper_people_todaypdf
 
 
 class CommandInvoker:
@@ -105,12 +106,12 @@ class CommandInvoker:
         response = "翻译功能暂未开放"
         CommandInvoker._send_text_msg(to, response)
 
-    # 命令：/people-daily
-    @staticmethod
-    def cmd_people_daily(to: SendTo, message: str = "") -> None:
-        # 获取人民日报
-        response = "人民日报功能暂未开放"
-        CommandInvoker._send_text_msg(to, response)
+    # # 命令：/people
+    # @staticmethod
+    # def cmd_people_daily(to: SendTo, message: str = "") -> None:
+    #     # 获取人民日报
+    #     response = "人民日报功能暂未开放"
+    #     CommandInvoker._send_text_msg(to, response)
 
     # 命令：/today-in-history
     @staticmethod
@@ -143,6 +144,15 @@ class CommandInvoker:
         # 获取二维码
         response = generate_qrcode(message)
         Sender.send_localfile_msg(to, response)
+
+    # 命令：/people
+    @staticmethod
+    def cmd_people_daily(to: SendTo, message: str = "") -> None:
+        #判断是否为空
+        if message == "":
+            response = get_paper_people_todaypdf()
+            Sender.send_localfile_msg(to, response)
+
 
     # 命令：/todo
     @staticmethod
