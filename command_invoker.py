@@ -18,7 +18,7 @@ from command.weibo_hot import get_weibo_hot_str
 from command.zhihu_hot import get_zhihu_hot_str
 from send_msg import Sender, SendMessage, SendMessageType, SendTo
 from utils.text_to_image import text_to_image
-from command.paper_people import get_paper_people_todaypdf
+from command.paper_people import get_paper_people_todaypdf, get_paper_people_pdf_path
 
 
 class CommandInvoker:
@@ -148,11 +148,27 @@ class CommandInvoker:
     # 命令：/people
     @staticmethod
     def cmd_people_daily(to: SendTo, message: str = "") -> None:
-        #判断是否为空
+        """发送人民日报PDF文件"""
+        """发送当天01版本的人民日报PDF"""
         if message == "":
-            response = get_paper_people_todaypdf()
-            CommandInvoker._send_text_msg(to, response)
-            Sender.send_localfile_msg(to, response)#path没问题，但是pdf文件没有被抓下来
+            path = get_paper_people_todaypdf()
+            Sender.send_localfile_msg(to, path)
+        """发送特定日期特定版本的人民日报PDF"""
+        path = get_paper_people_pdf_path(message)
+        Sender.send_localfile_msg(to, path)
+
+
+        # """发送人民日报url"""
+        # """发送当天01版本的人民日报url"""
+        # if message.lower() == "url":
+        #     response = get_paper_people_savepath()
+        #     CommandInvoker._send_text_msg(to, response)
+        #
+        # """发送特定日期特定版本的url"""
+        # parts = message.lower().split()
+        # if len(parts) == 2 and parts[0] == "url" and parts[1].isdigit():
+        #     response = get_paper_people_savepath(parts[1])
+        #     CommandInvoker._send_text_msg(to, response)
 
 
     # 命令：/todo
