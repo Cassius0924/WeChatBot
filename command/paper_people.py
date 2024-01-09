@@ -39,13 +39,7 @@ def get_paper_pdf_url(date_version: str) -> Optional[str]:
     day = yearmonthday[6:8] if yearmonthday else ""
 
     url = f"http://paper.people.com.cn/rmrb/images/{year_month}/{day}/{version}/rmrb{yearmonthday}{version}.pdf"
-    return url if yearmonthday and version else None
-
-
-def get_today_paper_pdf_url() -> Optional[str]:
-    """获取今日01版人民日报pdf的URL"""
-    today_date_version = get_current_ymd() + "01"
-    return get_paper_pdf_url(today_date_version)
+    return url if yearmonthday and version else print("输入的日期版本号不符合要求，请重新输入...") and None
 
 
 def get_paper_pdf_path(date_version: str) -> Optional[str]:
@@ -68,6 +62,12 @@ def get_paper_pdf_path(date_version: str) -> Optional[str]:
             return save_path
         else:
             return None
+
+
+def get_today_paper_pdf_url() -> Optional[str]:
+    """获取今日01版人民日报pdf的URL"""
+    today_date_version = get_current_ymd() + "01"
+    return get_paper_pdf_url(today_date_version)
 
 
 def get_today_paper_pdf_path() -> Optional[str]:

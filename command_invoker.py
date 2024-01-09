@@ -122,6 +122,9 @@ class CommandInvoker:
                 response = get_paper_pdf_url(parts[1])
                 if response:
                     CommandInvoker._send_text_msg(to, response)
+                if response is None:
+                    e = "输入的日期版本号不符合要求，请重新输入\n若要获取2021年1月2日03版的人民日报的url，请输入\n/people url 2021010203"
+                    CommandInvoker._send_text_msg(to, e)
         else:
             """发送人民日报PDF文件"""
             """发送特定日期特定版本的人民日报PDF"""
