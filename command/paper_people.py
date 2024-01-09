@@ -1,8 +1,11 @@
+import os
+
 import requests
 from utils.time import get_current_year_month, get_current_day, get_current_ymd
 from utils.path import get_abs_path
 
-def download_paper_people_pdf(date_version: str) -> bool:
+def download_paper_people_pdf(date_version: str) -> str:
+    """判断是否已经人民日报pdf到本地"""
     pass
 
 def get_paper_people_pdf_url(date_version: str) -> str:#2024010901
@@ -19,19 +22,24 @@ def get_paper_people_pdf_url(date_version: str) -> str:#2024010901
         # url = "http://paper.people.com.cn/rmrb/images/2024-01/09/01/rmrb2024010901.pdf"
         url = f"http://paper.people.com.cn/rmrb/images/{year_month}/{day}/{version}/rmrb{yearmonthday}{version}.pdf"
 
-        try:
-            response = requests.get(url, timeout=10)
-            if response.status_code == 200:
-                with open(save_path, "wb") as file:
-                    file.write(response.content)
-                print(f"下载成功，保存路径为{save_path}")
-            else:
-                print(f"下载失败，状态码为{response.status_code}")
-        except Exception as e:
-            print(f"下载失败，错误为{e}")
-        return url
+        # 判断是否已经人民日报pdf到本地
+        if os.path.exists(save_path):
+            print(f"已经下载过{save_path}")
+            return url
+        else:
+            try:
+                response = requests.get(url, timeout=10)
+                if response.status_code == 200:
+                    with open(save_path, "wb") as file:
+                        file.write(response.content)
+                    print(f"下载成功，保存路径为{save_path}")
+                else:
+                    print(f"下载失败，状态码为{response.status_code}")
+            except Exception as e:
+                print(f"下载失败，错误为{e}")
+            return url
     else:
-        print("输入的日期版本号不符合要求，请重新输入")
+        print("输入的日期版本号不符合要求，请重新输入\n若想获取2021年1月2日03版的人民日报的url,请输入\n/people url 2021010203")
         return None
 
 def get_paper_people_url() -> str:
@@ -56,19 +64,24 @@ def get_paper_people_dateversionpdf(date_version: str) -> str:#2024010901
         # url = "http://paper.people.com.cn/rmrb/images/2024-01/09/01/rmrb2024010901.pdf"
         url = f"http://paper.people.com.cn/rmrb/images/{year_month}/{day}/{version}/rmrb{yearmonthday}{version}.pdf"
 
-        try:
-            response = requests.get(url, timeout=10)
-            if response.status_code == 200:
-                with open(save_path, "wb") as file:
-                    file.write(response.content)
-                print(f"下载成功，保存路径为{save_path}")
-            else:
-                print(f"下载失败，状态码为{response.status_code}")
-        except Exception as e:
-            print(f"下载失败，错误为{e}")
-        return save_path
+        # 判断是否已经人民日报pdf到本地
+        if os.path.exists(save_path):
+            print(f"已经下载过{save_path}")
+            return url
+        else:
+            try:
+                response = requests.get(url, timeout=10)
+                if response.status_code == 200:
+                    with open(save_path, "wb") as file:
+                        file.write(response.content)
+                    print(f"下载成功，保存路径为{save_path}")
+                else:
+                    print(f"下载失败，状态码为{response.status_code}")
+            except Exception as e:
+                print(f"下载失败，错误为{e}")
+            return save_path
     else:
-        print("输入的日期版本号不符合要求，请重新输入")
+        print("输入的日期版本号不符合要求，请重新输入\n若想获取2021年1月2日03版的人民日报，请输入\n/people 2021010203")
         return None
 
 
