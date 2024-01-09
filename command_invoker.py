@@ -149,17 +149,6 @@ class CommandInvoker:
     # 命令：/people
     @staticmethod
     def cmd_people_daily(to: SendTo, message: str = "") -> None:
-        """发送人民日报PDF文件"""
-        """发送特定日期特定版本的人民日报PDF"""
-        if message != "":
-            path = get_paper_people_dateversionpdf(message)
-            Sender.send_localfile_msg(to, path)
-        """发送当天01版本的人民日报PDF"""
-        if message == "":
-            path = get_paper_people_todaypdf()
-            Sender.send_localfile_msg(to, path)
-
-
         """发送人民日报url"""
         """发送当天01版本的人民日报url"""
         if message.lower() == "url":
@@ -171,6 +160,15 @@ class CommandInvoker:
             response = get_paper_people_pdf_url(parts[1])
             CommandInvoker._send_text_msg(to, response)
 
+        """发送人民日报PDF文件"""
+        """发送特定日期特定版本的人民日报PDF"""
+        if message != "":
+            path = get_paper_people_dateversionpdf(message)
+            Sender.send_localfile_msg(to, path)
+        """发送当天01版本的人民日报PDF"""
+        if message == "":
+            path = get_paper_people_todaypdf()
+            Sender.send_localfile_msg(to, path)
 
     # 命令：/todo
     @staticmethod
