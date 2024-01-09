@@ -71,7 +71,7 @@ cmd_dict = {
         "func": None,
     },
     "people": {
-        "keys": ["people", "人民日报"],
+        "keys": ["people", "人民日报", "people-daily", "paper-people"],
         "desc": "发送今天人民日报的PDF。",
         "value": 12,
         "func": CommandInvoker.cmd_people_daily,
