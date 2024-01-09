@@ -154,11 +154,13 @@ class CommandInvoker:
         if message.lower() == "url":
             response = get_paper_people_url()
             CommandInvoker._send_text_msg(to, response)
-        # 使用 elif 确保只有一个条件被满足
-        elif message.isdigit():
-            response = get_paper_people_pdf_url(message)
-            if response:
-                CommandInvoker._send_text_msg(to, response)
+        elif message.lower().startswith("url"):
+            """发送特定日期特定版本的url"""
+            parts = message.lower().split()
+            if len(parts) == 2 and parts[0] == "url" and parts[1].isdigit():
+                response = get_paper_people_pdf_url(parts[1])
+                if response:
+                    CommandInvoker._send_text_msg(to, response)
         else:
             """发送人民日报PDF文件"""
             """发送特定日期特定版本的人民日报PDF"""
@@ -174,7 +176,6 @@ class CommandInvoker:
             if message == "":
                 path = get_paper_people_todaypdf()
                 Sender.send_localfile_msg(to, path)
-
 
     # 命令：/todo
     @staticmethod
