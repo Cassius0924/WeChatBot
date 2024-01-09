@@ -160,16 +160,16 @@ class CommandInvoker:
             Sender.send_localfile_msg(to, path)
 
 
-        """发送人民日报url"""
-        """发送当天01版本的人民日报url"""
-        if message.lower() == "url":
-            response = get_paper_people_url()
-            CommandInvoker._send_text_msg(to, response)
-        """发送特定日期特定版本的url"""
-        parts = message.lower().split()
-        if len(parts) == 2 and parts[0] == "url" and parts[1].isdigit():
-            response = get_paper_people_pdf_url(parts[1])
-            CommandInvoker._send_text_msg(to, response)
+        # """发送人民日报url"""
+        # """发送当天01版本的人民日报url"""
+        # if message.lower() == "url":
+        #     response = get_paper_people_url()
+        #     CommandInvoker._send_text_msg(to, response)
+        # """发送特定日期特定版本的url"""
+        # parts = message.lower().split()
+        # if len(parts) == 2 and parts[0] == "url" and parts[1].isdigit():
+        #     response = get_paper_people_pdf_url(parts[1])
+        #     CommandInvoker._send_text_msg(to, response)
 
 
     # 命令：/todo
