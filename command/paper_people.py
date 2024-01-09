@@ -9,7 +9,7 @@ def get_paper_people_todaypdf() -> str:
     day = get_current_day()
     #TODO: 版本号需要根据实际情况修改
     version = "01"
-    save_path = get_abs_path(f"data/paper_people/{yearmonthday}.pdf")
+    save_path = get_abs_path(f"data/paper_people_pdf/{yearmonthday}.pdf")
     url = f"http://paper.people.com.cn/rmrb/images/{year_month}/{day}/{version}/rmrb{yearmonthday}{version}.pdf"
     # url = f"http://paper.people.com.cn/rmrb/images/2024-01/09/01/rmrb2024010901.pdf"
 
